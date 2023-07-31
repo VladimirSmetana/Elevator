@@ -7,40 +7,35 @@
 
 class Elevator
 {
-
+    /*Аааа.....А, где ?))*/
 };
 
 class Cabine
 {
-private:
-    int i = 1;
-public:
+    private:
+        int i = 1;
+    public:
 
-    int Cab(int a, int time)
-    {
-        int N;
-         loop:std::cout << "Этаж: #" << i << " ...Целевой этаж : ";
-         std::cin >> N;
-        if (N < 1) N = 1; if (N > 20) N = 20;
-        std::cout << std::endl << "Двери закрываются" << std::endl;
-        for (i = a; ; (N > i) ? i++ : i--)
+        int Cab(int a, int time)
         {
-            if (a > 1 && N > i) { std::cout << "Ошибка!" << std::endl; goto loop; }
-            std::cout << '"' << "Этаж #" << i << '"' << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(time*1000));
-            if (i == N) 
-            { std::cout << "Двери открываются" << std::endl; //break;
-            system("pause");
-            return Cab(i, time);
-            };
-        }
-
-
-    };
+            int N;
+             loop:std::cout << "Этаж: #" << i << " ...Целевой этаж : ";
+             std::cin >> N;
+            if (N < 1) N = 1; if (N > 20) N = 20;
+            std::cout << std::endl << "Двери закрываются" << std::endl;
+            for (i = a; ; (N > i) ? i++ : i--)
+            {
+                if (a > 1 && N > i) { std::cout << "Ошибка!" << std::endl; goto loop; }
+                std::cout << '"' << "Этаж #" << i << '"' << std::endl;
+                std::this_thread::sleep_for(std::chrono::milliseconds(time*1000));
+                if (i == N) 
+                { std::cout << "Двери открываются" << std::endl; //break;
+                system("pause");
+                return Cab(i, time);
+                };
+            }
+        };
 };
-
-
-
 
 
 int main()
@@ -51,9 +46,16 @@ int main()
     std::cout << "Выберете кабину: s - маленькая / b - большая : ";
     std::cin >> ss;
 
-    if (ss == 's') { S.Cab(1, 1); }
-    if (ss == 'b') { B.Cab(1, 3); }
-    
+    switch ( ss )
+      {
+         case 's':
+            S.Cab(1, 1); 
+            break;
+         case 'b':
+            B.Cab(1, 3); 
+            break;
+      }
+   
     return 0;
 };
 
