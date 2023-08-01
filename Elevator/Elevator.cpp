@@ -4,57 +4,27 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-
-class Elevator
-{
-
-};
-
-class Cabine
-{
-private:
-    int i = 1;
-public:
-
-    int Cab(int a, int time)
-    {
-        int N;
-         loop:std::cout << "Этаж: #" << i << " ...Целевой этаж : ";
-         std::cin >> N;
-        if (N < 1) N = 1; if (N > 20) N = 20;
-        std::cout << std::endl << "Двери закрываются" << std::endl;
-        for (i = a; ; (N > i) ? i++ : i--)
-        {
-            if (a > 1 && N > i) { std::cout << "Ошибка!" << std::endl; goto loop; }
-            std::cout << '"' << "Этаж #" << i << '"' << std::endl;
-            std::this_thread::sleep_for(std::chrono::milliseconds(time*1000));
-            if (i == N) 
-            { std::cout << "Двери открываются" << std::endl; //break;
-            system("pause");
-            return Cab(i, time);
-            };
-        }
-
-
-    };
-};
-
-
-
-
+#include "Floor.h"
+#include "Cabine.h"
 
 int main()
 {
     setlocale(LC_ALL, "Russian");
-    Cabine S, B;
-    char ss;
-    std::cout << "Выберете кабину: s - маленькая / b - большая : ";
-    std::cin >> ss;
+    int start_floor;
+    std::cout << "Кабины лифта находятся на Этаже #1" << std::endl;
+    std::cout << "На каком этаже вы находитесь (1-20)? ";
+    std::cin >> start_floor;
 
-    if (ss == 's') { S.Cab(1, 1); }
-    if (ss == 'b') { B.Cab(1, 3); }
-    
-    return 0;
+    loop: Floor E(start_floor); E.call_button();
+
+    if (E.get_li() == 'n') goto loop;
+    Cabine S(start_floor, 1), B(start_floor, 3);
+
+    switch (E.get_ss())
+    {
+        case 's': S.Cab(); return 0;
+        case 'b': B.Cab(); return 0;
+    }  
 };
 
 
